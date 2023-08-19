@@ -1,0 +1,7 @@
+name: WorldSelectorH
+version: 0.0.1
+main: fr.formiko.worldselectorh.WorldSelectorHPlugin
+description: Select part of the world.
+author: Hydrolien
+website: https://github.com/HydrolienF/WorldSelectorH
+api-version: '1.20'
