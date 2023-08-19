@@ -1,6 +1,9 @@
 package fr.formiko.worldselectorh;
 
+import java.util.UUID;
 import java.util.function.BiConsumer;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 public class Selector {
     private final int xMin;
@@ -9,11 +12,13 @@ public class Selector {
     private final int zMax;
     private long processedBlocks = 0l;
     private final int BLOCKS_PER_COLUMN = 384;
-    public Selector(int x1, int z1, int x2, int z2) {
+    private final UUID worldUUID;
+    public Selector(int x1, int z1, int x2, int z2, UUID worldUUID) {
         xMin = Math.min(x1, x2);
         zMin = Math.min(z1, z2);
         xMax = Math.max(x1, x2);
         zMax = Math.max(z1, z2);
+        this.worldUUID = worldUUID;
     }
 
     public void executeColumn(BiConsumer<Integer, Integer> consumer) {
@@ -37,4 +42,6 @@ public class Selector {
     public long getColumnsCount() { return (xMax - xMin + 1l) * (zMax - zMin + 1l); }
     public long getBlocksCount() { return getColumnsCount() * BLOCKS_PER_COLUMN; }
     public double progress() { return (double) processedBlocks / (double) getBlocksCount(); }
+    public UUID getWorldUUID() { return worldUUID; }
+    public World getWorld() { return Bukkit.getWorld(worldUUID); }
 }

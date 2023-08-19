@@ -1,5 +1,5 @@
 name: WorldSelectorH
-version: 1.0.2
+version: 1.1.0
 main: fr.formiko.worldselectorh.WorldSelectorHPlugin
 description: Select part of the world.
 author: Hydrolien
@@ -8,5 +8,5 @@ api-version: '1.20'
 commands:
    select:
       description: Select part of the world.
-      usage: /select <x1> <z1> <x2> <z2>
+      usage: /select <x1> <z1> <x2> <z2> (<world>)
       permission: worldselectorh.select
