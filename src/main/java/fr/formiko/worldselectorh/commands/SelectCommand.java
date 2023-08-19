@@ -14,6 +14,7 @@ public class SelectCommand implements CommandExecutor {
         if (args.length == 4) {
             WorldSelectorHPlugin.setSelector(new Selector(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]),
                     Integer.parseInt(args[3])));
+            sender.sendMessage("Select " + WorldSelectorHPlugin.getSelector().getBlocksCount() + " blocks.");
             return true;
         } else {
             sender.sendMessage("Usage: /select <x1> <z1> <x2> <z2>");

@@ -5,3 +5,8 @@ description: Select part of the world.
 author: Hydrolien
 website: https://github.com/HydrolienF/WorldSelectorH
 api-version: '1.20'
+commands:
+   select:
+      description: Select part of the world.
+      usage: /select <x1> <z1> <x2> <z2>
+      permission: worldselectorh.select
