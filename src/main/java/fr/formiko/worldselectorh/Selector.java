@@ -3,6 +3,7 @@ package fr.formiko.worldselectorh;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 
 public class Selector {
     private final int xMin;
@@ -33,7 +34,7 @@ public class Selector {
 
     public boolean hasNextBlock() { return processedBlocks < getBlocksCount(); }
     public boolean hasNextColumn() { return processedBlocks < getBlocksCount(); }
-    public Vector3 nextBlock() {
+    public Block nextBlock() {
         processedBlocks++;
         currentBlock.setY(currentBlock.getY() + 1);
         if (currentBlock.getY() > BLOCKS_PER_COLUMN) {
@@ -47,6 +48,6 @@ public class Selector {
                 }
             }
         }
-        return currentBlock;
+        return getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
     }
 }
