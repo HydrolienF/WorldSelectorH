@@ -1,11 +1,13 @@
 package fr.formiko.worldselectorh;
 
+import java.io.Serializable;
 import java.util.UUID;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
-public class Selector {
+public class Selector implements Serializable {
     private final int xMin;
     private final int zMin;
     private final int yMin = -64;
@@ -14,6 +16,7 @@ public class Selector {
     private Vector3 currentBlock;
     private long processedBlocks = 0l;
     private final int BLOCKS_PER_COLUMN = 384;
+    private final int BLOCK_PER_CHUNK = BLOCKS_PER_COLUMN * 16 * 16;
     private final UUID worldUUID;
 
     public Selector(int x1, int z1, int x2, int z2, UUID worldUUID) {
@@ -49,5 +52,30 @@ public class Selector {
             }
         }
         return getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
+    }
+    public Block nextColumn() {
+        processedBlocks += BLOCKS_PER_COLUMN;
+        currentBlock.setY(-64);
+        currentBlock.setZ(currentBlock.getZ() + 1);
+        if (currentBlock.getZ() > zMax) {
+            currentBlock.setZ(zMin);
+            currentBlock.setX(currentBlock.getX() + 1);
+            if (currentBlock.getX() > xMax) {
+                return null;
+            }
+        }
+        return getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
+    }
+    public Chunk nextChunk() {
+        processedBlocks += BLOCK_PER_CHUNK;
+        currentBlock.setZ(currentBlock.getZ() + 16);
+        if (currentBlock.getZ() - (currentBlock.getZ() % 16) > zMax) {
+            currentBlock.setZ(zMin);
+            currentBlock.setX(currentBlock.getX() + 16);
+            if (currentBlock.getX() - (currentBlock.getX() % 16) > xMax) {
+                return null;
+            }
+        }
+        return getWorld().getChunkAt(currentBlock.getX() / 16, currentBlock.getZ() / 16);
     }
 }

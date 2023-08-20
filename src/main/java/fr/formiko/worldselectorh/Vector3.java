@@ -1,6 +1,8 @@
 package fr.formiko.worldselectorh;
 
-public class Vector3 {
+import java.io.Serializable;
+
+public class Vector3 implements Serializable {
     private int x, y, z;
     public Vector3(int x, int y, int z) {
         this.x = x;
