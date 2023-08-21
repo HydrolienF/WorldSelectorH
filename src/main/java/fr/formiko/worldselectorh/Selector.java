@@ -11,7 +11,7 @@ public class Selector implements Serializable {
     private final int xMin;
     private final int zMin;
     private final int yMin = -64;
-    private final int yMax = 320;
+    private final int yMax = 319;
     private final int xMax;
     private final int zMax;
     private Vector3 currentBlock;
@@ -53,7 +53,6 @@ public class Selector implements Serializable {
                 // }
             }
         }
-        System.out.println(currentBlock.getX() + " " + currentBlock.getY() + " " + currentBlock.getZ());
         return b;
     }
     public Block nextColumn() {
