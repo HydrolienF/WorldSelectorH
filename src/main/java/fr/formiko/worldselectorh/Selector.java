@@ -28,6 +28,7 @@ public class Selector implements Serializable {
         this.worldUUID = worldUUID;
         currentBlock = new Vector3(xMin, yMin, zMin);
     }
+    public Selector(Selector selector) { this(selector.xMin, selector.zMin, selector.xMax, selector.zMax, selector.worldUUID); }
 
     public long getColumnsCount() { return (xMax - xMin + 1l) * (zMax - zMin + 1l); }
     public long getBlocksCount() { return getColumnsCount() * BLOCKS_PER_COLUMN; }

@@ -25,6 +25,7 @@ public class WorldSelectorHPlugin extends JavaPlugin {
 
     public static Selector getSelector() { return selector; }
     public static void setSelector(Selector selector) { WorldSelectorHPlugin.selector = selector; }
+    public static void resetSelector() { setSelector(new Selector(getSelector())); }
 
 
     public boolean saveSelector() {

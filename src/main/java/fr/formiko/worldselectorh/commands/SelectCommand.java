@@ -34,8 +34,13 @@ public class SelectCommand implements CommandExecutor {
             sender.sendMessage("Select " + WorldSelectorHPlugin.getSelector().getBlocksCount() + " blocks.");
             return true;
         } else {
-            sender.sendMessage("Usage: /select <x1> <z1> <x2> <z2> (<world>)");
-            return false;
+            if (WorldSelectorHPlugin.getSelector() != null) {
+                WorldSelectorHPlugin.resetSelector();
+                return true;
+            } else {
+                sender.sendMessage("Usage: /select <x1> <z1> <x2> <z2> (<world>)");
+                return false;
+            }
         }
     }
 
