@@ -28,6 +28,7 @@ public class WorldSelectorHPlugin extends JavaPlugin {
 
 
     public boolean saveSelector() {
+        new File(SELECTOR_FILE_PATH).getParentFile().mkdirs();
         try (BukkitObjectOutputStream out = new BukkitObjectOutputStream(new GZIPOutputStream(new FileOutputStream(SELECTOR_FILE_PATH)))) {
             out.writeObject(selector);
             return true;

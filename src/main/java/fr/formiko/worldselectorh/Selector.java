@@ -25,7 +25,7 @@ public class Selector implements Serializable {
         xMax = Math.max(x1, x2);
         zMax = Math.max(z1, z2);
         this.worldUUID = worldUUID;
-        currentBlock = new Vector3(xMin, yMin - 1, zMin);
+        currentBlock = new Vector3(xMin, yMin, zMin);
     }
 
     public long getColumnsCount() { return (xMax - xMin + 1l) * (zMax - zMin + 1l); }
@@ -38,6 +38,7 @@ public class Selector implements Serializable {
     public boolean hasNextBlock() { return processedBlocks < getBlocksCount(); }
     public boolean hasNextColumn() { return processedBlocks < getBlocksCount(); }
     public Block nextBlock() {
+        Block b = getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
         processedBlocks++;
         currentBlock.setY(currentBlock.getY() + 1);
         if (currentBlock.getY() > BLOCKS_PER_COLUMN) {
@@ -51,9 +52,10 @@ public class Selector implements Serializable {
                 }
             }
         }
-        return getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
+        return b;
     }
     public Block nextColumn() {
+        Block b = getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
         processedBlocks += BLOCKS_PER_COLUMN;
         currentBlock.setY(-64);
         currentBlock.setZ(currentBlock.getZ() + 1);
@@ -64,9 +66,10 @@ public class Selector implements Serializable {
                 return null;
             }
         }
-        return getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
+        return b;
     }
     public Chunk nextChunk() {
+        Chunk c = getWorld().getChunkAt(currentBlock.getX() / 16, currentBlock.getZ() / 16);
         processedBlocks += BLOCK_PER_CHUNK;
         currentBlock.setZ(currentBlock.getZ() + 16);
         if (currentBlock.getZ() - (currentBlock.getZ() % 16) > zMax) {
@@ -76,6 +79,6 @@ public class Selector implements Serializable {
                 return null;
             }
         }
-        return getWorld().getChunkAt(currentBlock.getX() / 16, currentBlock.getZ() / 16);
+        return c;
     }
 }
