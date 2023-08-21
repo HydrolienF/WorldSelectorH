@@ -11,6 +11,7 @@ public class Selector implements Serializable {
     private final int xMin;
     private final int zMin;
     private final int yMin = -64;
+    private final int yMax = 320;
     private final int xMax;
     private final int zMax;
     private Vector3 currentBlock;
@@ -41,17 +42,18 @@ public class Selector implements Serializable {
         Block b = getWorld().getBlockAt(currentBlock.getX(), currentBlock.getY(), currentBlock.getZ());
         processedBlocks++;
         currentBlock.setY(currentBlock.getY() + 1);
-        if (currentBlock.getY() > BLOCKS_PER_COLUMN) {
+        if (currentBlock.getY() > yMax) {
             currentBlock.setY(-64);
             currentBlock.setZ(currentBlock.getZ() + 1);
             if (currentBlock.getZ() > zMax) {
                 currentBlock.setZ(zMin);
                 currentBlock.setX(currentBlock.getX() + 1);
-                if (currentBlock.getX() > xMax) {
-                    return null;
-                }
+                // if (currentBlock.getX() > xMax) {
+                // return null;
+                // }
             }
         }
+        System.out.println(currentBlock.getX() + " " + currentBlock.getY() + " " + currentBlock.getZ());
         return b;
     }
     public Block nextColumn() {
@@ -62,9 +64,9 @@ public class Selector implements Serializable {
         if (currentBlock.getZ() > zMax) {
             currentBlock.setZ(zMin);
             currentBlock.setX(currentBlock.getX() + 1);
-            if (currentBlock.getX() > xMax) {
-                return null;
-            }
+            // if (currentBlock.getX() > xMax) {
+            // return null;
+            // }
         }
         return b;
     }
@@ -75,9 +77,9 @@ public class Selector implements Serializable {
         if (currentBlock.getZ() - (currentBlock.getZ() % 16) > zMax) {
             currentBlock.setZ(zMin);
             currentBlock.setX(currentBlock.getX() + 16);
-            if (currentBlock.getX() - (currentBlock.getX() % 16) > xMax) {
-                return null;
-            }
+            // if (currentBlock.getX() - (currentBlock.getX() % 16) > xMax) {
+            // return null;
+            // }
         }
         return c;
     }
