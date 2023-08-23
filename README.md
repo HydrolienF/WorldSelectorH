@@ -15,4 +15,4 @@ dependencies {
 }
 ```
 
-Replace `1.0.1` buy the lastest version.
+Replace `1.0.1` by the lastest version.
