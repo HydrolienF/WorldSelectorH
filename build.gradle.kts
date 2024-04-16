@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fr.formiko.worldselectorh"
-version = "1.4.2"
+version = "1.4.3"
 description = "Select part of the world."
 
 repositories {
@@ -24,7 +24,20 @@ tasks {
     compileJava {
         // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
         // See https://openjdk.java.net/jeps/247 for more information.
-        options.release.set(21)
+        options.release.set(17)
+    }
+    processResources {
+        val props = mapOf(
+            "name" to project.name,
+            "version" to project.version,
+            "description" to project.description,
+            "apiVersion" to "1.20",
+            "group" to project.group
+        )
+        inputs.properties(props)
+        filesMatching("plugin.yml") {
+            expand(props)
+        }
     }
 }
 

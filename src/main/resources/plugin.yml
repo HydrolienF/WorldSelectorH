@@ -4,7 +4,7 @@ main: $group.${name}Plugin
 description: "$description"
 author: Hydrolien
 website: https://github.com/HydrolienF/WorldSelectorH
-api-version: '1.20'
+api-version: $apiVersion
 folia-supported: true
 commands:
    select:
